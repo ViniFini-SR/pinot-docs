@@ -103,7 +103,7 @@ WHERE TEXT_MATCH(ACCESS_LOG_COL, 'post AND administrator AND index AND firefox')
 
 Let's consider another example using text from job candidate resumes. Each line in this file represents skill-data from resumes of different candidates.
 
-This data is stored in the `SKILLS\_COL` column in a Pinot table. Each line in the input text represents a column value.
+This data is stored in the `SKILLS_COL` column in a Pinot table. Each line in the input text represents a column value.
 
 ```csv
 Distributed systems, Java, C++, Go, distributed query engines for analytics and data warehouses, Machine learning, spark, Kubernetes, transaction processing
@@ -316,7 +316,7 @@ The search expression (the second argument to `TEXT_MATCH` function) is the quer
 
 This query is used to seek out an exact match of a given phrase, where terms in the user-specified phrase appear in the same order in the original text document.
 
-The following example reuses the earlier example of resume text data containing 14 documents to walk through queries. In this sentence, "document" means the column value. The data is stored in the `SKILLS\_COL` column and we have created a text index on this column.
+The following example reuses the earlier example of resume text data containing 14 documents to walk through queries. In this sentence, "document" means the column value. The data is stored in the `SKILLS_COL` column and we have created a text index on this column.
 
 ```csv
 Java, C++, worked on open source projects, coursera machine learning
@@ -340,7 +340,7 @@ Databases, columnar query processing, Apache Arrow, distributed systems, Machine
 Database engine, OLAP systems, OLTP transaction processing at large scale, concurrency, multi-threading, GO, building large scale systems
 ```
 
-This example queries the `SKILL\_COL` column to look for documents where each matching document MUST contain phrase "Distributed systems":
+This example queries the `SKILLS_COL` column to look for documents where each matching document MUST contain phrase "Distributed systems":
 
 ```sql
 SELECT SKILLS_COL 
@@ -375,7 +375,7 @@ This is because the phrase query looks for the phrase occurring in the original 
 
 **NOTE:** Matching is always done in a case-insensitive manner.
 
-The next example queries the `SKILL\_COL` column to look for documents where each matching document MUST contain phrase "query processing":
+The next example queries the `SKILLS_COL` column to look for documents where each matching document MUST contain phrase "query processing":
 
 ```sql
 SELECT SKILLS_COL 
@@ -394,7 +394,7 @@ Databases, columnar query processing, Apache Arrow, distributed systems, Machine
 
 Term queries are used to search for individual terms.
 
-This example will query the `SKILL\_COL` column to look for documents where each matching document MUST contain the term 'Java'.
+This example will query the `SKILLS_COL` column to look for documents where each matching document MUST contain the term 'Java'.
 
 As mentioned earlier, the search expression is always within single quotes. However, since this is a term query, we don't have to use double quotes within single quotes.
 
@@ -408,7 +408,7 @@ WHERE TEXT_MATCH(SKILLS_COL, 'Java')
 
 The Boolean operators `AND` and `OR` are supported and we can use them to build a composite query. Boolean operators can be used to combine phrase and term queries in any arbitrary manner
 
-This example queries the `SKILL\_COL` column to look for documents where each matching document MUST contain the phrases "distributed systems" and "tensor flow". This combines two phrases using the `AND` Boolean operator.
+This example queries the `SKILLS_COL` column to look for documents where each matching document MUST contain the phrases "distributed systems" and "tensor flow". This combines two phrases using the `AND` Boolean operator.
 
 ```sql
 SELECT SKILLS_COL 
@@ -424,7 +424,7 @@ C++, Python, Tensor flow, database kernel, storage, indexing and transaction pro
 CUDA, GPU processing, Tensor flow, Pandas, Python, Jupyter notebook, spark, Machine learning, building high performance scalable systems
 ```
 
-This example queries the `SKILL\_COL` column to look for documents where each document MUST contain the phrase "machine learning" and the terms 'gpu' and 'python'. This combines a phrase and two terms using Boolean operators.
+This example queries the `SKILLS_COL` column to look for documents where each document MUST contain the phrase "machine learning" and the terms 'gpu' and 'python'. This combines a phrase and two terms using Boolean operators.
 
 ```sql
 SELECT SKILLS_COL 
@@ -446,7 +446,7 @@ When using Boolean operators to combine term(s) and phrase(s) or both, note that
 
 Use of the OR operator is implicit. In other words, if phrase(s) and term(s) are not combined using AND operator in the search expression, the OR operator is used by default:
 
-This example queries the `SKILL\_COL` column to look for documents where each document MUST contain ANY one of:
+This example queries the `SKILLS_COL` column to look for documents where each document MUST contain ANY one of:
 
 * phrase "distributed systems" OR
 * term 'java' OR
@@ -460,7 +460,7 @@ WHERE TEXT_MATCH(SKILLS_COL, '"distributed systems" Java C++')
 
 Grouping using parentheses is supported:
 
-This example queries the `SKILL\_COL` column to look for documents where each document MUST contain
+This example queries the `SKILLS_COL` column to look for documents where each document MUST contain
 
 * phrase "distributed systems" AND
 * at least one of the terms Java or C++
@@ -477,7 +477,7 @@ WHERE TEXT_MATCH(SKILLS_COL, '"distributed systems" AND (Java C++)')
 
 Prefix queries can be done in the context of a single term. We can't use prefix matches for phrases.
 
-This example queries the `SKILL\_COL` column to look for documents where each document MUST contain text like stream, streaming, streams etc
+This example queries the `SKILLS_COL` column to look for documents where each document MUST contain text like stream, streaming, streams etc
 
 ```sql
 SELECT SKILLS_COL 
